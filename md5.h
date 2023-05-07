@@ -8,7 +8,7 @@ static_assert(sizeof(uint16) == 2, "Change type of var for uint16");
 static_assert(sizeof(uint32) == 4, "Change type of var for uint32");
 static_assert(sizeof(uint64) == 8, "Change type of var for uint64");
 
-class _md5
+class MD5
 {
 private:
 	uint16 i = 0;
@@ -16,7 +16,6 @@ private:
 	uint32 hash[4];
 	uint32 temp[6];
 	uint32 word[16];
-	//uint32 block_size = 512;
 	uint64 out_len = 0, j = 0;
 	static const uint32 k[64];
 	static const uint16 s[64];
@@ -33,6 +32,6 @@ private:
 	void split_message(const char*, uint64, uint32**&, uint64&, uint16);
 
 public:
-	std::string create(char*, uint64);
+	std::string Create(char*, uint64);
 
 };

@@ -1,6 +1,6 @@
 #include "md5.h"
 
-void _md5::split_message(const char* message, uint64 len, uint32**& out, uint64& out_len, uint16 block_size)
+void MD5::split_message(const char* message, uint64 len, uint32**& out, uint64& out_len, uint16 block_size)
 {
 	block_size = (block_size + 31) / 32;
 	out = new uint32 * [block_size];
@@ -49,37 +49,37 @@ void _md5::split_message(const char* message, uint64 len, uint32**& out, uint64&
 	out_len = i / (block_size * 4) + 1;
 }
 
-uint32 _md5::rotate(uint32 data, uint16 num)
+uint32 MD5::rotate(uint32 data, uint16 num)
 {
 	return ((data << num) | (data >> (32 - num)));
 }
 
-uint32 _md5::permutation(uint32 data)
+uint32 MD5::permutation(uint32 data)
 {
 	return (((data & 0xFF) << 24) | ((data & 0xFF00) << 8) | ((data & 0xFF0000) >> 8) | ((data & 0xFF000000) >> 24));
 }
 
-uint32 _md5::F(uint32 B, uint32 C, uint32 D)
+uint32 MD5::F(uint32 B, uint32 C, uint32 D)
 {
 	return (B & C) | ((~B) & D);
 }
 
-uint32 _md5::G(uint32 B, uint32 C, uint32 D)
+uint32 MD5::G(uint32 B, uint32 C, uint32 D)
 {
 	return (B & D) | (C & (~D));
 }
 
-uint32 _md5::H(uint32 B, uint32 C, uint32 D)
+uint32 MD5::H(uint32 B, uint32 C, uint32 D)
 {
 	return B ^ C ^ D;
 }
 
-uint32 _md5::I(uint32 B, uint32 C, uint32 D)
+uint32 MD5::I(uint32 B, uint32 C, uint32 D)
 {
 	return C ^ (B | (~D));
 }
 
-void _md5::init(void)
+void MD5::init(void)
 {
 	hash[0] = 0x67452301;
 	hash[1] = 0xefcdab89;
@@ -87,7 +87,7 @@ void _md5::init(void)
 	hash[3] = 0x10325476;
 }
 
-void _md5::rewriting(void)
+void MD5::rewriting(void)
 {
 	temp[4] = temp[4] + temp[0] + k[i] + word[temp[5]];
 	temp[0] = temp[3];
@@ -96,7 +96,7 @@ void _md5::rewriting(void)
 	temp[1] += rotate(temp[4], s[i]);
 }
 
-std::string _md5::create(char* message, uint64 len)
+std::string MD5::Create(char* message, uint64 len)
 {
 	init();
 	sstring.str(std::string());
@@ -155,7 +155,7 @@ std::string _md5::create(char* message, uint64 len)
 	return sstring.str();
 }
 
-const uint32 _md5::k[64] =
+const uint32 MD5::k[64] =
 {
 	0xd76aa478, 0xe8c7b756, 0x242070db, 0xc1bdceee, 0xf57c0faf, 0x4787c62a, 0xa8304613, 0xfd469501,
 	0x698098d8, 0x8b44f7af, 0xffff5bb1, 0x895cd7be, 0x6b901122, 0xfd987193, 0xa679438e, 0x49b40821,
@@ -167,7 +167,7 @@ const uint32 _md5::k[64] =
 	0x6fa87e4f, 0xfe2ce6e0, 0xa3014314, 0x4e0811a1, 0xf7537e82, 0xbd3af235, 0x2ad7d2bb, 0xeb86d391
 };
 
-const uint16 _md5::s[64] =
+const uint16 MD5::s[64] =
 {
 	7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,  7, 12, 17, 22,
 	5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,  5,  9, 14, 20,
