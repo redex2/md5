@@ -96,7 +96,7 @@ void MD5::rewriting(void)
 	temp[1] += rotate(temp[4], s[i]);
 }
 
-std::string MD5::Create(char* message, uint64 len)
+std::string MD5::create(char* message, uint64 len)
 {
 	init();
 	sstring.str(std::string());

@@ -32,6 +32,6 @@ private:
 	void split_message(const char*, uint64, uint32**&, uint64&, uint16);
 
 public:
-	std::string Create(char*, uint64);
+	std::string create(char*, uint64);
 
 };
